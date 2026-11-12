@@ -2,4 +2,4 @@ streamlit>=1.30.0
 openai>=1.10.0
 python-dotenv>=1.0.0
 pandas
-streamlit-effects
+streamlit-surfside-labs-ui
