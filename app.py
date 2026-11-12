@@ -167,7 +167,7 @@ col_m3.metric("Malicious Attacks Blocked", st.session_state.total_blocked, delta
 
 st.divider()
 
-# --- CHAT INTERFACE ---
+# --- CHAT INTERFACE & AUDIT LOG ---
 chat_col, log_col = st.columns([2, 1])
 
 with chat_col:
@@ -240,3 +240,15 @@ with log_col:
         st.dataframe(df, use_container_width=True, hide_index=True)
     else:
         st.success("✅ No attacks detected yet.")
+
+# --- LEGAL & COMPLIANCE FRAMEWORK ---
+st.divider()
+with st.expander("⚖️ Legal & Compliance Framework (Enterprise Alignment)"):
+    st.markdown("""
+    **Aegis Sentinel** is designed to assist organizations in meeting regulatory and industry standards for Artificial Intelligence security:
+    
+    *   **OWASP Top 10 for LLMs (LLM01):** Directly mitigates *Prompt Injection* vulnerabilities through heuristic and semantic guardrails.
+    *   **EU AI Act (Article 15):** Helps demonstrate compliance with cybersecurity requirements for high-risk AI systems, ensuring resilience against adversarial attacks.
+    *   **NIST AI Risk Management Framework (AI RMF):** Aligns with the *Measure* and *Manage* functions by providing real-time telemetry and audit logs of malicious AI interactions.
+    *   **ISO/IEC 42001 (AI Management System):** Supports the implementation of operational controls for AI risk mitigation.
+    """)
