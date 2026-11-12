@@ -1,23 +1,23 @@
-# 🛡️ Prompt-Aegis: AI Firewall & Prompt Injection Detector
+# 🛡️ Aegis Sentinel: AI Firewall & Prompt Injection Detector
 
-[![Live Demo](https://img.shields.io/badge/demo-LIVE-brightgreen?style=for-the-badge&logo=streamlit)](URL_DE_TU_STREAMLIT_AQUI)
+[![Live Demo](https://img.shields.io/badge/demo-LIVE-brightgreen?style=for-the-badge&logo=streamlit)](https://aegis-sentinel-vsvrsi6khl6k5y3drut9wh.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/)
 [![Cybersecurity](https://img.shields.io/badge/Domain-AI%20Security%20%7C%20LLM-red.svg)]()
 [![AI](https://img.shields.io/badge/AI-Groq%20LLM-orange.svg)]()
 
 Did you know a Chevrolet dealership lost money in 2023 because a user tricked their AI chatbot into selling a car for $1? That wasn't a traditional hack; it was a **Prompt Injection** — currently the #1 vulnerability in LLM applications according to OWASP.
 
-While everyone is rushing to build AI chatbots, **Prompt-Aegis** is the shield that protects them. It is an advanced AI Firewall designed to intercept malicious prompts, Jailbreaks, and System Prompt extraction attempts before they reach the Large Language Model.
+While everyone is rushing to build AI chatbots, **Aegis Sentinel** is the shield that protects them. It is an advanced AI Firewall designed to intercept malicious prompts, Jailbreaks, and System Prompt extraction attempts before they reach the Large Language Model.
 
 ## 🌐 Try It Live
 
-🔴 **[Open the Interactive Dashboard Here](URL_DE_TU_STREAMLIT_AQUI)**
+🔴 **[Open the Interactive Dashboard Here](https://aegis-sentinel-vsvrsi6khl6k5y3drut9wh.streamlit.app/)**
 
 No installation needed — just click and try to hack the AI. 
 
 ## 🚨 Defense in Depth: Dual-Layer Architecture
 
-Prompt-Aegis uses a two-layer defense mechanism to ensure maximum security without sacrificing performance:
+Aegis Sentinel uses a two-layer defense mechanism to ensure maximum security without sacrificing performance:
 
 1. **Layer 1: Deterministic Regex Heuristics (Fast & Free):**
    Intercepts known attack vectors instantly using regular expressions (e.g., "Ignore previous instructions", "DAN mode"). It blocks the request before it even touches the API, saving tokens and reducing latency.
