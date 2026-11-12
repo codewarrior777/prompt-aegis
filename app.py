@@ -5,9 +5,21 @@ import pandas as pd
 from datetime import datetime
 from openai import OpenAI
 from dotenv import load_dotenv
+from streamlit_surfside_labs_ui import matrix_rain
 
 load_dotenv()
 st.set_page_config(page_title="Aegis Sentinel", page_icon="🛡️", layout="wide")
+
+# ==========================================
+# 🎬 LIVE BACKGROUND: MATRIX RAIN
+# ==========================================
+# Nota: duration=20 se detiene a los 20s. Cambia a None para que sea infinito.
+matrix_rain(
+    duration=20,      
+    density="heavy",  
+    color="#00FF41",  
+    speed=1.5
+)
 
 # ==========================================
 # 🎨 CYBERPUNK SOC DASHBOARD THEME (CSS)
@@ -32,7 +44,7 @@ h1, h2, h3 {
 
 /* Métricas (Tarjetas) */
 div[data-testid="stMetric"] { 
-    background-color: #111; 
+    background-color: rgba(17, 17, 17, 0.85); /* Fondo semi-transparente para leer sobre el Matrix */
     border: 1px solid #00ff41; 
     border-left: 5px solid #ff003c;
     padding: 15px; 
@@ -45,7 +57,7 @@ div[data-testid="stMetricValue"] {
 
 /* Sidebar */
 [data-testid="stSidebar"] { 
-    background-color: #0a0a0a; 
+    background-color: rgba(10, 10, 10, 0.95); 
     border-right: 1px solid #00ff41;
 }
 
@@ -66,7 +78,7 @@ div[data-testid="stMetricValue"] {
 
 /* Cajas de alerta */
 .stAlert {
-    background-color: #1a0000 !important;
+    background-color: rgba(26, 0, 0, 0.9) !important;
     border: 1px solid #ff003c !important;
     color: #ff003c !important;
 }
