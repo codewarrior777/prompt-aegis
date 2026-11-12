@@ -5,20 +5,9 @@ import pandas as pd
 from datetime import datetime
 from openai import OpenAI
 from dotenv import load_dotenv
-from streamlit_effects import matrix_rain
 
 load_dotenv()
 st.set_page_config(page_title="Aegis Sentinel", page_icon="🛡️", layout="wide")
-
-# ==========================================
-# 🎬 LIVE BACKGROUND: MATRIX RAIN
-# ==========================================
-matrix_rain(
-    duration=20,      
-    density="heavy",  
-    color="#00FF41",  
-    speed=1.5
-)
 
 # ==========================================
 # 🎨 CYBERPUNK SOC DASHBOARD THEME (CSS)
@@ -27,10 +16,24 @@ soc_css = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
 
+/* --- FONDO ANIMADO (MESH GRADIENT) --- */
 .stApp { 
-    background-color: #050505; 
+    background-color: #050505; /* Color base oscuro */
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(0, 255, 65, 0.08) 0px, transparent 50%),
+        radial-gradient(at 80% 10%, rgba(0, 180, 255, 0.08) 0px, transparent 50%),
+        radial-gradient(at 90% 80%, rgba(0, 255, 65, 0.08) 0px, transparent 50%),
+        radial-gradient(at 30% 90%, rgba(0, 180, 255, 0.08) 0px, transparent 50%);
+    background-size: 200% 200%;
+    animation: gradientMove 15s ease infinite;
     color: #00ff41; 
     font-family: 'Fira Code', monospace; 
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
 }
 
 /* Títulos */
@@ -43,7 +46,7 @@ h1, h2, h3 {
 
 /* Métricas (Tarjetas) */
 div[data-testid="stMetric"] { 
-    background-color: rgba(17, 17, 17, 0.85); 
+    background-color: rgba(17, 17, 17, 0.85); /* Fondo semi-transparente para contraste */
     border: 1px solid #00ff41; 
     border-left: 5px solid #ff003c;
     padding: 15px; 
