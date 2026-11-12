@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import datetime
 from openai import OpenAI
 from dotenv import load_dotenv
-from streamlit_effects import matrix_rain  # <-- IMPORTACIÓN CORREGIDA
+from streamlit_effects import matrix_rain
 
 load_dotenv()
 st.set_page_config(page_title="Aegis Sentinel", page_icon="🛡️", layout="wide")
