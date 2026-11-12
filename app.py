@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import datetime
 from openai import OpenAI
 from dotenv import load_dotenv
-from streamlit_surfside_labs_ui import matrix_rain
+from streamlit_effects import matrix_rain  # <-- IMPORTACIÓN CORREGIDA
 
 load_dotenv()
 st.set_page_config(page_title="Aegis Sentinel", page_icon="🛡️", layout="wide")
@@ -13,7 +13,6 @@ st.set_page_config(page_title="Aegis Sentinel", page_icon="🛡️", layout="wid
 # ==========================================
 # 🎬 LIVE BACKGROUND: MATRIX RAIN
 # ==========================================
-# Nota: duration=20 se detiene a los 20s. Cambia a None para que sea infinito.
 matrix_rain(
     duration=20,      
     density="heavy",  
@@ -44,7 +43,7 @@ h1, h2, h3 {
 
 /* Métricas (Tarjetas) */
 div[data-testid="stMetric"] { 
-    background-color: rgba(17, 17, 17, 0.85); /* Fondo semi-transparente para leer sobre el Matrix */
+    background-color: rgba(17, 17, 17, 0.85); 
     border: 1px solid #00ff41; 
     border-left: 5px solid #ff003c;
     padding: 15px; 
