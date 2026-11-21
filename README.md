@@ -18,7 +18,6 @@ No installation needed — just click, try to hack the AI, and watch the firewal
 ## 📸 Dashboard Preview
 
 ![Aegis Sentinel Dashboard](assets/aegis_sentinel_hud.png)
-*(Nota: Sube una captura de pantalla de tu nuevo dashboard a la carpeta `assets` y descomenta esta línea).*
 
 ## 🚨 Defense in Depth: Dual-Layer Architecture
 
