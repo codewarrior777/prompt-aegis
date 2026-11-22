@@ -216,6 +216,7 @@ def layer4_semantic(prompt, context_msgs=None):
         for m in context_msgs[-4:]:
             msgs.append({"role": m["role"], "content": m["content"]})
     msgs.append({"role": "user", "content": prompt})
+    
     try:
         r = client.chat.completions.create(
             model=JUDGE_MODEL,
@@ -224,12 +225,27 @@ def layer4_semantic(prompt, context_msgs=None):
             max_tokens=200,
             response_format={"type": "json_object"},
         )
-        data = json.loads(r.choices[0].message.content)
+        raw_content = r.choices[0].message.content.strip()
+        
+        # Clean markdown formatting if the LLM wraps JSON in ```json ... ```
+        if raw_content.startswith("```json"):
+            raw_content = raw_content[7:]
+        if raw_content.startswith("```"):
+            raw_content = raw_content[3:]
+        if raw_content.endswith("```"):
+            raw_content = raw_content[:-3]
+        raw_content = raw_content.strip()
+        
+        data = json.loads(raw_content)
+        
+        # Confidence threshold
         if data.get("malicious") is True and float(data.get("confidence", 0)) >= 0.5:
             return [f"Semantic ({data.get('category','other')})"]
         return []
-    except Exception:
-        return ["Semantic (Unavailable)"]
+    except Exception as e:
+        # Fail-open on API errors to avoid blocking benign prompts
+        print(f"Semantic Judge Error: {e}")
+        return []
 
 def layer5_output_filter(text, canary):
     findings = []
