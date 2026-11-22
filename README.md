@@ -18,7 +18,7 @@ No installation needed — just click, try to hack the AI, and watch the firewal
 
 ## 📸 Dashboard Preview
 
-![Aegis Sentinel Dashboard](assets/aegis_sentinel_hud.png)
+![Aegis Sentinel Dashboard](assets/aegis_sentinel_soc_hud.png)
 
 ## 🚨 Defense in Depth: Five-Layer Architecture
 
