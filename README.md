@@ -36,19 +36,26 @@ Any finding from any layer **blocks** the request. The risk score is only an ind
 
 ```mermaid
 graph TD
-    A[User Prompt] --> B{L1 Regex}
-    B -->|Finding| F[Blocked and logged]
-    B -->|None| C{L2 Encoding}
+    A([👤 User Prompt]):::user --> B{🔤 L1 Regex}:::layer
+    B -->|Finding| F
+    B -->|None| C{🧬 L2 Encoding}:::layer
     C -->|Finding| F
-    C -->|None| D{L3 PII / Secrets}
+    C -->|None| D{🪪 L3 PII / Secrets}:::layer
     D -->|Finding| F
-    D -->|None| E{L4 Semantic Judge}
-    E -->|Malicious| F
-    E -->|Judge error| G
-    E -->|Safe| G[Target LLM - Groq]
-    G --> H{L5 Output Filter}
+    D -->|None| E{🧠 L4 Semantic Judge}:::judge
+    E -->|Malicious| F[🚨 Blocked and logged]:::block
+    E -->|Judge error: fail-open| G
+    E -->|Safe| G[🤖 Target LLM - Groq]:::llm
+    G --> H{🛡️ L5 Output Filter}:::layer
     H -->|Exact canary| F
-    H -->|Clean| I[Response to user]
+    H -->|Clean| I([✅ Response to user]):::safe
+
+    classDef user fill:#0d1117,stroke:#00ff41,stroke-width:2px,color:#00ff41
+    classDef layer fill:#0b2a3d,stroke:#58a6ff,stroke-width:2px,color:#cfe8ff
+    classDef judge fill:#2d1b4e,stroke:#b388ff,stroke-width:3px,color:#eadcff
+    classDef llm fill:#0d1117,stroke:#ffd000,stroke-width:2px,color:#ffd000
+    classDef block fill:#4a0010,stroke:#ff003c,stroke-width:3px,color:#ffd6dd
+    classDef safe fill:#003a0e,stroke:#00ff41,stroke-width:3px,color:#b6ffc8
 ```
 
 **Failure mode: fail-open.** If the semantic judge errors (bad key, rate limit, retired model, empty or invalid JSON), Layer 4 contributes no findings and the request continues. Since the last update the app shows a warning and prints the error to the console instead of failing silently. An earlier version of this README claimed a fail-closed fallback; that was **incorrect** and has been removed.
