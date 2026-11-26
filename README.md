@@ -1,10 +1,14 @@
 # 🛡️ Aegis Sentinel: A Layered Prompt-Injection Firewall (Research Prototype)
 
-[![Status](https://img.shields.io/badge/status-research%20prototype-orange.svg)]()
-[![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/)
-[![Domain](https://img.shields.io/badge/Domain-AI%20Security%20%7C%20LLM-red.svg)]()
-[![OWASP](https://img.shields.io/badge/OWASP-LLM01-critical.svg)]()
-[![Live Demo](https://img.shields.io/badge/demo-streamlit-brightgreen.svg)](https://aegis-sentinel-vsvrsi6khl6k5y3drut9wh.streamlit.app/)
+[![Live App](https://img.shields.io/badge/🚀_Live_App-Try_It_Here-brightgreen?style=for-the-badge&logo=streamlit)](https://aegis-sentinel-vsvrsi6khl6k5y3drut9wh.streamlit.app/)
+[![Red Team Harness](https://img.shields.io/badge/🐍_Red_Team_Harness-Hydra-red?style=for-the-badge)](https://github.com/codewarrior777/Hydra-prompt-breaker)
+![Status](https://img.shields.io/badge/Status-Research%20Prototype-orange)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![OWASP](https://img.shields.io/badge/OWASP-LLM01-red)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B)
+![Groq](https://img.shields.io/badge/LLM-Groq-F55036)
+![Layers](https://img.shields.io/badge/Defense-5%20Layers-purple)
 
 > **This is an academic research prototype built by a senior Computer Science & Information Security student.**
 > It is **not** a production security product, has not been independently audited, and makes no compliance or certification claims. See [Known Limitations](#-known-limitations).
