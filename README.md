@@ -141,7 +141,7 @@ AI tools were used in this project, and I want to be explicit about how:
 
 - **Review and refactor stage:** I used Claude to review the code, challenge overclaims in this README, extract the layer functions into `guardrails.py` (checked by comparing original and extracted functions on the same inputs, plus offline tests with a fake client), and draft the patch and documentation. I ran, tested and committed the changes myself.
 - **Companion project:** the first version of Hydra was reviewed with DeepSeek, Gemini and Claude; see the AI Assistance Disclosure in the Hydra README.
-- **Not claimed:** I do not claim that AI tools did or did not write any particular earlier part of Aegis beyond what is stated here.
+- - **Initial version:** the initial version of Aegis was written with assistance from DeepSeek. I reviewed, modified and tested it.
 
 Final design decisions, testing and accuracy of the claims in this README are my responsibility.
 
