@@ -150,7 +150,7 @@ AI tools were used in this project, and I want to be explicit about how:
 - **Companion project:** the first version of Hydra was reviewed with DeepSeek, Gemini and Claude; see the AI Assistance Disclosure in the Hydra README.
 - **Initial version:** the initial version of Aegis was written with assistance from DeepSeek. I reviewed, modified and tested it.
 
-Final design decisions, testing and accuracy of the claims in this README are my responsibility.
+This is a student project: AI assisted the writing and review, and I am responsible for checking that what is described here matches what the code does.
 
 ## 🔒 Ethical Use
 
