@@ -8,7 +8,7 @@
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B)
 ![Groq](https://img.shields.io/badge/LLM-Groq-F55036)
 [![Red Team Harness](https://img.shields.io/static/v1?label=Red%20Team%20Harness&message=Hydra&color=red&style=for-the-badge)](https://github.com/codewarrior777/Hydra-prompt-breaker)
-![Layers](https://img.shields.io/static/v1?label=Defense&message=5%20Layers&color=8A2BE2)
+![Layers](https://img.shields.io/badge/Defense-5_Layers-8A2BE2)
 
 > **This is an academic research prototype built by a senior Computer Science & Information Security student.**
 > It is **not** a production security product, has not been independently audited, and makes no compliance or certification claims. See [Known Limitations](#-known-limitations).
