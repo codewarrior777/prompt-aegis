@@ -10,10 +10,28 @@ they were synced from below each time you copy it.
 Synced from commit: (fill in on each sync)
 """
 import json
+import os
 import re
 import unicodedata
 
-DEFAULT_JUDGE_MODEL = "llama-3.1-8b-instant"
+# The original judge model (llama-3.1-8b-instant) was scheduled for shutdown by Groq on 2026-08-16.
+# Override it with the JUDGE_MODEL environment variable if needed.
+DEFAULT_JUDGE_MODEL = os.getenv("JUDGE_MODEL", "openai/gpt-oss-20b")
+
+
+def _judge_request_options(judge_model):
+    """Request options that depend on the judge model.
+
+    gpt-oss models are reasoning models: keep the reasoning short, leave it out
+    of the response, and leave room for it in the token budget. Other models
+    keep the original small budget.
+    """
+    if "gpt-oss" in judge_model:
+        return {
+            "max_tokens": 600,
+            "extra_body": {"reasoning_effort": "low", "include_reasoning": False},
+        }
+    return {"max_tokens": 200}
 
 LAYER1_RULES = {
     "Prompt Injection":         r"(?i)(ignore|forget|disregard)\s+(all\s+)?(previous|prior|above)\s+(instructions|prompts|rules)",
@@ -78,10 +96,12 @@ def layer4_semantic_ex(prompt, client, judge_model=DEFAULT_JUDGE_MODEL, context_
             model=judge_model,
             messages=msgs,
             temperature=0.0,
-            max_tokens=200,
             response_format={"type": "json_object"},
+            **_judge_request_options(judge_model),
         )
-        raw_content = r.choices[0].message.content.strip()
+        raw_content = (r.choices[0].message.content or "").strip()
+        if not raw_content:
+            raise ValueError("empty judge response (the token budget may have been used up by reasoning)")
 
         # Clean markdown formatting if the LLM wraps JSON in ```json ... ```
         if raw_content.startswith("```json"):

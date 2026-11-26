@@ -17,7 +17,8 @@ from guardrails import (
     layer1_regex,
     layer2_encoding,
     layer3_pii,
-    layer4_semantic,
+    layer4_semantic_ex,
+    DEFAULT_JUDGE_MODEL,
     layer5_output_filter,
 )
 
@@ -28,13 +29,14 @@ st.set_page_config(page_title="Aegis Sentinel", page_icon="🛡️", layout="wid
 # CONFIG
 # ==========================================
 TARGET_MODEL = "openai/gpt-oss-120b"
-JUDGE_MODEL  = "llama-3.1-8b-instant"
+JUDGE_MODEL  = DEFAULT_JUDGE_MODEL
 MAX_PROMPT_LEN = 4000
 
 client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
     api_key=os.getenv("GROQ_API_KEY", "dummy_key"),
 )
+API_KEY_MISSING = not os.getenv("GROQ_API_KEY")
 
 # ==========================================
 # CSS
@@ -125,6 +127,7 @@ defaults = {
     "latency_ms": [],
     "pending_prompt": None,
     "canary": "SUPER_SECRET_123",
+    "judge_error": None,
 }
 for k, v in defaults.items():
     if k not in st.session_state:
@@ -262,7 +265,7 @@ with st.sidebar:
 # HEADER + METRICS
 # ==========================================
 st.title("🛡️ AEGIS SENTINEL // SOC DASHBOARD")
-st.markdown("**Enterprise-Grade AI Firewall & Prompt Injection Detector**")
+st.markdown("**Research Prototype: Layered AI Firewall & Prompt Injection Detector**")
 
 total = st.session_state.total_safe + st.session_state.total_blocked
 avg_latency = (sum(st.session_state.latency_ms) / len(st.session_state.latency_ms)) if st.session_state.latency_ms else 0.0
@@ -273,6 +276,14 @@ c1.metric("Prompts Analyzed", total)
 c2.metric("Safe Allowed", st.session_state.total_safe)
 c3.metric("Attacks Blocked", st.session_state.total_blocked)
 c4.metric("Avg. Latency", f"{avg_latency:.0f} ms")
+
+if API_KEY_MISSING:
+    st.error("GROQ_API_KEY is not set: Layer 4 and the target model calls will fail.")
+if st.session_state.get("judge_error"):
+    st.warning(
+        "Layer 4 (semantic judge) failed on the last prompt and was skipped (fail-open): "
+        + str(st.session_state.judge_error)[:200]
+    )
 
 st.divider()
 
@@ -318,7 +329,13 @@ with tab_live:
             if use_l3: threats += layer3_pii(prompt)
             if use_l4 and not threats:
                 with st.spinner("Semantic guardrail analyzing..."):
-                    threats += layer4_semantic(prompt, client, JUDGE_MODEL, st.session_state.messages[-4:])
+                    l4_findings, l4_error = layer4_semantic_ex(
+                        prompt, client, JUDGE_MODEL, st.session_state.messages[-4:]
+                    )
+                threats += l4_findings
+                st.session_state.judge_error = l4_error
+                if l4_error:
+                    print(f"Semantic Judge Error: {l4_error}")
 
             score = risk_score(threats)
             sev = severity_from_score(score)
@@ -479,10 +496,12 @@ with tab_audit:
 # ---------- COMPLIANCE ----------
 with tab_compliance:
     st.markdown("""
-    **Aegis Sentinel** helps organizations meet AI security standards:
+    **Informational mapping only.** Aegis Sentinel is an academic research prototype. It was designed
+    with the following frameworks in mind, but it has not been assessed against them and does **not**
+    provide compliance or certification.
 
-    * **OWASP Top 10 for LLMs (LLM01)** — mitigates *Prompt Injection* via layered heuristic, encoding, and semantic guardrails.
-    * **EU AI Act (Article 15)** — demonstrates cybersecurity resilience for high-risk AI systems.
-    * **NIST AI RMF** — aligns with *Measure* and *Manage* via real-time telemetry and audit logging.
-    * **ISO/IEC 42001** — supports operational AI risk controls.
+    * **OWASP Top 10 for LLMs (LLM01)**: addresses *Prompt Injection* with layered heuristic, encoding and semantic checks. Coverage is partial and has not been measured.
+    * **EU AI Act (Article 15)**: relates to robustness and cybersecurity of high-risk AI systems; this project does not demonstrate compliance.
+    * **NIST AI RMF**: telemetry and audit logging are loosely related to the *Measure* and *Manage* functions.
+    * **ISO/IEC 42001**: conceptually related to operational AI risk controls.
     """)
